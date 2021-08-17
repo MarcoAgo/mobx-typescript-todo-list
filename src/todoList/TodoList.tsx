@@ -1,8 +1,8 @@
-import TodoItem, {Item} from "./TodoItem";
-import {observer} from "mobx-react-lite";
+import TodoItem, { Item } from "./TodoItem";
+import { observer } from "mobx-react-lite";
 import TodoListStore from "./store/TodoListStore";
 import TodoItemStore from "./store/TodoItemStore";
-import {useState} from "react";
+import { useState } from "react";
 import Status from "./constants/Status";
 
 const list = new TodoListStore({});
@@ -11,7 +11,7 @@ const TodoList = observer(() => {
 	const [value, setValue] = useState<string>('')
 
 	// Actions
-	const handleChange = (e: { target: {value: string} }) => {
+	const handleChange = (e: { target: { value: string } }) => {
 		const { target: { value } } = e || {}
 		setValue(value)
 	}
