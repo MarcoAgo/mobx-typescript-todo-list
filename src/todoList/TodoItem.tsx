@@ -1,4 +1,4 @@
-import {observer} from "mobx-react-lite";
+import {observer} from "mobx-react";
 
 type Func = () => void;
 
@@ -22,7 +22,7 @@ const TodoItem = observer((props: TodoItemProps) => {
         type="checkbox"
         name={item.value}
         id={item.value}
-        onClick={() => item.toggle()}
+        onChange={() => item.toggle()}
         checked={item.checked}
       />
       {item.value}

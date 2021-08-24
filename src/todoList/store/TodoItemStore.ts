@@ -2,8 +2,8 @@ import Status from "../constants/Status";
 import {action, makeObservable, observable} from "mobx";
 
 class TodoItemStore {
-  value: string = ''
-  checked: boolean = false
+  value = ''
+  checked = false
   status: string = Status.TODO
 
   constructor(value: string) {
