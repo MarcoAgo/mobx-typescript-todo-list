@@ -1,12 +1,11 @@
 import {observer} from "mobx-react";
-
-type Func = () => void;
+import {Checkbox} from "semantic-ui-react";
 
 export interface Item {
   value: string,
   checked: boolean,
   status: string,
-  toggle: Func,
+  toggle: () => void,
 }
 
 interface TodoItemProps {
@@ -17,16 +16,11 @@ const TodoItem = observer((props: TodoItemProps) => {
   const { item } = props
 
   return (
-    <label htmlFor={item.value}>
-      <input
-        type="checkbox"
-        name={item.value}
-        id={item.value}
-        onChange={() => item.toggle()}
-        checked={item.checked}
-      />
-      {item.value}
-    </label>
+	  <Checkbox
+		  label={item.value}
+		  checked={item.checked}
+		  onChange={() => item.toggle()}
+	  />
   )
 })
 

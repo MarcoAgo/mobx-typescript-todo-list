@@ -62,6 +62,10 @@ class TodoListStore {
   setFilterKey(key: string) {
     this.filterKey = key
   }
+
+  clearAllItems() {
+		this.items = {}
+  }
 }
 
 export default TodoListStore

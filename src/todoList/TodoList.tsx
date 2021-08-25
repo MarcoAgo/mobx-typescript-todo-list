@@ -1,53 +1,29 @@
-import TodoItem, { Item } from "./TodoItem";
-import {inject, observer} from "mobx-react";
-import TodoItemStore from "./store/TodoItemStore";
-import { useState } from "react";
-import Status from "./constants/Status";
-import { useQuery } from "react-query";
+import './styles/style.css'
+import { inject, observer } from "mobx-react"
+import { useQuery } from "react-query"
+import Heading from "./components/Heading"
+import TodoInput from "./components/Input"
+import List from "./components/List";
+import {Button, Icon} from "semantic-ui-react";
 
 const TodoList = observer((props: any) => {
 	const { list } = props;
-  const [value, setValue] = useState<string>('')
 	const queryFunction = list.setItemsFromApi.bind(list)
-	const { isLoading, isError } = useQuery('', queryFunction)
-
-  // Actions
-  const handleChange = (e: { target: { value: string } }) => {
-    const { target: { value } } = e || {}
-    setValue(value)
-  }
-
-  const handleClick = () => {
-    const itemToSave = new TodoItemStore(value)
-    list.setItem(itemToSave)
-    setValue('')
-  }
-
-  // Render
-  const renderItem = (item: Item) => (
-    <div key={item.value}>
-      <TodoItem item={item} />
-    </div>
-  )
-
-	if (isLoading) return <div>Loading, please wait!</div>
-	if (isError) return <div>Error! Please try again</div>
+	useQuery('', queryFunction, { suspense: true })
 
   return (
-    <div>
-	    <div>
-		    <p>Todos done: { list.finishedTodos } / { list.totalTodos }</p>
+    <div className="todoListWrapper">
+			<Heading />
+      <TodoInput />
+      <List />
+	    <div className="clearAllButtonWrapper">
+		    <Button animated='vertical' onClick={() => list.clearAllItems()}>
+			    <Button.Content hidden>Clear all</Button.Content>
+			    <Button.Content visible>
+				    <Icon name='trash' />
+			    </Button.Content>
+		    </Button>
 	    </div>
-      <div>
-        <button onClick={() => list.setFilterKey('')}>All</button>
-        <button onClick={() => list.setFilterKey(Status.TODO)}>To do</button>
-        <button onClick={() => list.setFilterKey(Status.COMPLETED)}>Completed</button>
-      </div>
-      <input value={value} onChange={handleChange} />
-      <button disabled={!value.length} onClick={handleClick}>Add</button>
-      <div>
-        {list.filteredItems.map(renderItem)}
-      </div>
     </div>
   )
 })
