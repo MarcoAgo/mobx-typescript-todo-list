@@ -31,7 +31,6 @@ const TodoInput = (props: PropsShape) => {
 	return (
 		<div className="inputWrapper">
 			<Input
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				// @ts-ignore
 				ref={inputRef}
 				placeholder="Write here your activity"
