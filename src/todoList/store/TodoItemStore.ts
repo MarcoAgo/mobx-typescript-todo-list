@@ -1,18 +1,15 @@
 import Status from "../constants/Status";
-import {action, makeObservable, observable} from "mobx";
+import { makeAutoObservable } from "mobx";
+import {Item} from "../TodoItem";
 
 class TodoItemStore {
   value = ''
   checked = false
   status: string = Status.TODO
+  subItems: { [index: string]: Item } = {}
 
   constructor(value: string) {
-    makeObservable(this, {
-      value: observable,
-      checked: observable,
-      status: observable,
-      toggle: action,
-    })
+    makeAutoObservable(this)
 
     this.value = value
   }
@@ -20,6 +17,13 @@ class TodoItemStore {
   toggle() {
     this.checked = !this.checked
     this.status = this.status === Status.TODO ? Status.COMPLETED : Status.TODO;
+  }
+
+  addSubItems(subItem: Item) {
+    this.subItems = {
+      ...this.subItems,
+      [subItem.value]: subItem
+    }
   }
 }
 
