@@ -4,6 +4,7 @@
   justify-content: center;
   width: 100vw;
   height: 100vh;
+  user-select: none;
 }
 
 .todoListWrapper {
@@ -26,6 +27,18 @@
 
 .headingParagraph {
   font-size: 16px;
+}
+
+.headingButtons p {
+  font-size: 12px;
+  margin-left: 24px;
+  display: inline;
+}
+
+.headingButtons strong {
+  font-size: 12px;
+  margin-left: 4px;
+  text-transform: capitalize;
 }
 
 /* Input */
@@ -72,8 +85,4 @@
   display: flex;
   justify-content: flex-end;
   width: 100%;
-}
-
-.clearAllButtonWrapper button {
-
 }

@@ -1,13 +1,7 @@
 import TodoItem, {Item} from "../TodoItem";
 import {inject, observer} from "mobx-react";
 
-interface PropsShape {
-	list?: {
-		filteredItems: Array<Item>
-	}
-}
-
-const List = observer((props: PropsShape) => {
+const List = observer((props: any) => {
 	const { list } = props;
 
 	const renderItem = (item: Item) => (
@@ -18,7 +12,7 @@ const List = observer((props: PropsShape) => {
 
 	return (
 		<div className="listWrapper">
-			{list?.filteredItems.map(renderItem)}
+			{list.filteredItems.map(renderItem)}
 		</div>
 	)
 })
