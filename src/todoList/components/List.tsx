@@ -5,7 +5,7 @@ const List = observer((props: any) => {
 	const { list } = props;
 
 	const renderItem = (item: Item) => (
-		<div key={item.value} className="listItem">
+		<div key={item.value}>
 			<TodoItem item={item} />
 		</div>
 	)

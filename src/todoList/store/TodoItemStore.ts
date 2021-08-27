@@ -1,5 +1,5 @@
 import Status from "../constants/Status";
-import { makeAutoObservable } from "mobx";
+import {action, makeAutoObservable} from "mobx";
 import {Item} from "../TodoItem";
 
 class TodoItemStore {
@@ -9,7 +9,9 @@ class TodoItemStore {
   subItems: { [index: string]: Item } = {}
 
   constructor(value: string) {
-    makeAutoObservable(this)
+    makeAutoObservable(this, {
+      addSubItems: action,
+    })
 
     this.value = value
   }

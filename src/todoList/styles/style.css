@@ -7,6 +7,14 @@
   user-select: none;
 }
 
+.flex {
+  display: flex;
+}
+
+.alignCenterVertically {
+  align-items: center;
+}
+
 .todoListWrapper {
   display: flex;
   flex-direction: column;
@@ -45,11 +53,11 @@
 .inputWrapper {
   display: flex;
   width: 100%;
+  margin-right: 8px;
 }
 
 .componentInput {
   width: 100%;
-  margin-right: 8px;
 }
 
 /* List */
@@ -67,6 +75,12 @@
   height: 32px;
   padding-left: 8px;
   width: 95%;
+  margin-right: 12px;
+}
+
+.editItem {
+  margin-right: 12px;
+  cursor: pointer;
 }
 
 .listItem .checkbox {
