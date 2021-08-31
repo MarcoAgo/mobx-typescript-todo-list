@@ -79,6 +79,11 @@
   height: 100%;
 }
 
+.itemSpace {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
 .listItem {
   height: 32px;
   padding-left: 8px;
@@ -87,6 +92,11 @@
 }
 
 .editItem {
+  margin-right: 4px;
+  cursor: pointer;
+}
+
+.removeItem {
   margin-right: 12px;
   cursor: pointer;
 }

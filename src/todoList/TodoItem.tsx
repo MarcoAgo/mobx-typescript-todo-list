@@ -13,6 +13,8 @@ export interface Item {
   toggle: () => void,
   addSubItems: () => void,
   addNewSubItems: (item: Item) => void,
+  removeNewSubItem: (id: string) => void,
+  removeSubItem: (id: string) => void,
   clearNewSubItems: () => void,
   clearSubItems: () => void,
 }
@@ -20,12 +22,14 @@ export interface Item {
 interface TodoItemProps {
   item: Item,
   dialogs?: any,
+  list?: any,
   hideSubItemsButton?: boolean,
+  removeSubItem: () => void,
 }
 
 const TodoItem = observer((props: TodoItemProps) => {
   const [hover, setHover] = useState(false)
-  const { item, dialogs, hideSubItemsButton } = props
+  const { item, dialogs, hideSubItemsButton, removeSubItem } = props
   const setActive = dialogs.setActive.bind(dialogs)
 
   const renderModalButton = () => hover && (
@@ -34,6 +38,16 @@ const TodoItem = observer((props: TodoItemProps) => {
         name="plus"
         color="grey"
         onClick={() => setActive( DialogsType.ADD_SUB_ITEMS, { title: item.value, id: item.id })}
+      />
+    </div>
+  )
+
+  const renderRemoveItemButton = () => hover && (
+    <div className="removeItem">
+      <Icon
+        name="remove"
+        color="grey"
+        onClick={removeSubItem}
       />
     </div>
   )
@@ -50,6 +64,7 @@ const TodoItem = observer((props: TodoItemProps) => {
         onChange={() => item.toggle()}
       />
       {renderModalButton()}
+      {renderRemoveItemButton()}
     </div>
   )
 })

@@ -4,6 +4,7 @@ import {makeAutoObservable, runInAction} from "mobx";
 import {POSTS_URL} from "../request/constants";
 import remapItems from "../utils/remapItems";
 import getData from "../request/getData";
+import { omit } from 'lodash'
 
 interface responseObj {
   [index: string]: Item,
@@ -57,6 +58,10 @@ class TodoListStore {
       ...this.items,
       [item.id]: item,
     }
+  }
+
+  removeItem(id: string) {
+    this.items = omit(this.items, id)
   }
 
   setFilterKey(key: string) {

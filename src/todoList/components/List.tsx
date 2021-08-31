@@ -1,27 +1,38 @@
-import TodoItem, {Item} from "../TodoItem";
-import {inject, observer} from "mobx-react";
+import TodoItem, { Item } from "../TodoItem";
+import { inject, observer } from "mobx-react";
 
 const List = observer((props: any) => {
-	const { list } = props;
+  const { list } = props
+  const removeItem = list.removeItem.bind(list)
 
-	const renderSubItem = (subItem: Item) => (
-		<div key={subItem.id} className="subItemWrapper">
-			<TodoItem item={subItem} hideSubItemsButton />
-		</div>
-	)
+  const renderSubItem = (subItem: Item, item: Item) => {
+    const removeSubItem = item.removeSubItem.bind(item)
+    return (
+      <div key={subItem.id} className="subItemWrapper">
+        <TodoItem
+          item={subItem}
+          hideSubItemsButton
+          removeSubItem={() => removeSubItem(subItem.id)}
+        />
+      </div>
+    )
+  }
 
-	const renderItem = (item: Item) => (
-		<div key={item.id}>
-			<TodoItem item={item} />
-			{item.subItemsArray.map(renderSubItem)}
-		</div>
-	)
+  const renderItem = (item: Item) => (
+    <div key={item.id}>
+      <TodoItem
+        item={item}
+        removeSubItem={() => removeItem(item.id)}
+      />
+      {item.subItemsArray.map((subItem: Item) => renderSubItem(subItem, item))}
+    </div>
+  )
 
-	return (
-		<div className="listWrapper">
-			{list.filteredItems.map(renderItem)}
-		</div>
-	)
+  return (
+    <div className="listWrapper">
+      {list.filteredItems.map(renderItem)}
+    </div>
+  )
 })
 
 export default inject('list')(List);

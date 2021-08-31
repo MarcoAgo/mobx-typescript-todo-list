@@ -2,14 +2,15 @@ import Status from "../constants/Status";
 import { action, computed, makeAutoObservable } from "mobx";
 import { Item } from "../TodoItem";
 import { v4 as uuidv4 } from 'uuid';
+import { omit } from 'lodash'
 
 class TodoItemStore {
   id = uuidv4()
   value = ''
   checked = false
   status: string = Status.TODO
-  subItems: { [index: string]: Item } = {}
-  newSubItems: { [index: string]: Item } = {}
+  subItems: { [index: string]: Item } = { }
+  newSubItems: { [index: string]: Item } = { }
 
   constructor(value: string) {
     makeAutoObservable(this, {
@@ -45,8 +46,13 @@ class TodoItemStore {
     }
   }
 
+  removeNewSubItem(id: string) {
+    this.newSubItems = omit(this.newSubItems, id)
+    console.log(this.newSubItems)
+  }
+
   clearNewSubItems() {
-    this.newSubItems = { }
+    this.newSubItems = {}
   }
 
   addSubItems() {
@@ -57,7 +63,12 @@ class TodoItemStore {
   }
 
   clearSubItems() {
-    this.newSubItems = {}
+    this.newSubItems = { }
+  }
+
+  removeSubItem(id: string) {
+    this.subItems = omit(this.subItems, id)
+    console.log(this.subItems)
   }
 }
 

@@ -17,7 +17,7 @@ const CustomModal = observer((props: any) => {
   const addNewSubItems = item?.addNewSubItems.bind(item)
   const addSubItems = item?.addSubItems.bind(item)
   const clearNewSubItems = item?.clearNewSubItems.bind(item)
-  // const clearSubItems = item?.clearSubItems.bind(item)
+  const removeNewSubItem = item?.removeNewSubItem.bind(item)
 
   const handleChange = (e: { target: { value: string } }) => {
     const { target: { value } } = e || {}
@@ -37,12 +37,17 @@ const CustomModal = observer((props: any) => {
 
   const handleSubmit = () => {
     addSubItems()
+    clearNewSubItems()
     dialogs.setActive('', {})
   }
 
   const renderSubItem = (subItem: Item) => (
     <div key={subItem.id}>
-      <TodoItem item={subItem} hideSubItemsButton />
+      <TodoItem 
+        item={subItem}
+        removeSubItem={() => removeNewSubItem(subItem.id)}
+        hideSubItemsButton
+      />
     </div>
   )
 
@@ -57,7 +62,7 @@ const CustomModal = observer((props: any) => {
       </Modal.Header>
       <Modal.Content>
         <div className="flex fullWidth">
-          <Form className="modalForm">
+          <Form className="modalForm" onSubmit={handleAddItem}>
             <Form.Input
               // ref={inputRef}
               placeholder="Write here your activity"
