@@ -25,7 +25,6 @@ const TodoInput = (props: any) => {
     <div className="flex">
       <Form className="inputWrapper" onSubmit={handleClick}>
         <Form.Input
-          // @ts-ignore
           ref={inputRef}
           placeholder="Write here your activity"
           size="small"

@@ -1,4 +1,3 @@
-import Status from "../constants/Status";
 import TodoItemStore from "../store/TodoItemStore";
 import { Item } from "../TodoItem";
 
@@ -16,14 +15,9 @@ interface ResponseObjType {
  */
 const remapItems = (response: Array<ResponseObjType>) => {
 	const result = response
-		.map(item => ({
-			// value: item.title.toLowerCase().replace(/\s/g, ''),
-			value: item.title,
-			checked: item.checked || false,
-			status: item.checked ? Status.COMPLETED : Status.TODO
-		}))
+		.map(item => new TodoItemStore(item.title))
 		.reduce((acc: { [index: string]: Item }, current) => {
-			acc[current.value] = new TodoItemStore(current.value)
+			acc[current.id] = current
 			return acc;
 		}, {})
 

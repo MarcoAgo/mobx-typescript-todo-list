@@ -55,7 +55,7 @@ class TodoListStore {
   setItem(item: Item) {
     this.items = {
       ...this.items,
-      [item.value]: item,
+      [item.id]: item,
     }
   }
 

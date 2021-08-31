@@ -4,8 +4,9 @@ import TodoList from "./todoList/TodoList"
 import { QueryClient, QueryClientProvider } from "react-query"
 import TodoListStore from "./todoList/store/TodoListStore"
 import { Provider } from "mobx-react"
-import { Dimmer, Loader } from "semantic-ui-react";
-import DialogStore from './todoList/store/DialogStore';
+import { Dimmer, Loader } from "semantic-ui-react"
+import DialogStore from './todoList/store/DialogStore'
+import CustomModal from './todoList/components/modals/Modal'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,7 +17,7 @@ const queryClient = new QueryClient({
 })
 
 const store = {
-  list: new TodoListStore({}),
+  list: new TodoListStore({ }),
   dialogs: new DialogStore(),
 };
 
@@ -33,6 +34,7 @@ function App() {
         <div id="app">
           <React.Suspense fallback={renderLoader()}>
             <TodoList />
+            <CustomModal />
           </React.Suspense>
         </div>
       </QueryClientProvider>
