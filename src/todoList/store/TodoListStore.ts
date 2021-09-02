@@ -23,20 +23,40 @@ class TodoListStore {
    * GETTERS - Computed
    */
   get finishedTodos() {
-    return Object
+    let totalSubTodos = 0;
+    const totalMainTodos = Object
       .values(this.items)
-      .filter((i: Item) => i.status === Status.COMPLETED).length
+      .filter((i: Item) => {
+        if (i.subItemsArray.length > 0) {
+          totalSubTodos = i.subItemsArray
+            .filter((i: Item) => i.status === Status.COMPLETED).length
+        }
+
+        return i.status === Status.COMPLETED
+      }).length
+
+    return totalMainTodos + totalSubTodos
   }
 
   get totalTodos() {
-    return Object.values(this.items).length
+    const totalMainItems = Object.values(this.items).length
+    const totalSubItems = Object.values(this.items).map((i: Item) => i.subItemsArray.length)
+    return totalMainItems + totalSubItems[0]
   }
 
   get filteredItems() {
     const listArray = Object.values(this.items)
+    let subItemsArray: Array<Item> = []
     if (!this.filterKey.length) return listArray
 
-    return listArray.filter((item: Item) => item.status === this.filterKey)
+    const mainItems = listArray.filter((item: Item) => {
+      if (item.subItemsArray.length > 0) {
+        subItemsArray = item.subItemsArray.filter((i: Item) => i.status === this.filterKey)
+      }
+      return item.status === this.filterKey
+    })
+
+    return [...mainItems, ...subItemsArray]
   }
 
   /**

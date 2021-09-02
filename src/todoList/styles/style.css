@@ -91,6 +91,10 @@
   margin-right: 12px;
 }
 
+.listItem .cancelled label {
+  text-decoration: line-through;
+}
+
 .editItem {
   margin-right: 4px;
   cursor: pointer;

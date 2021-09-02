@@ -10,6 +10,7 @@ export interface Item {
   status: string,
   subItemsArray: Array<Item>,
   newSubItemsArray: Array<Item>,
+  isCheckedBySubitems: boolean,
   toggle: () => void,
   addSubItems: () => void,
   addNewSubItems: (item: Item) => void,
@@ -52,6 +53,14 @@ const TodoItem = observer((props: TodoItemProps) => {
     </div>
   )
 
+  const handleChange = () => {
+    if (item.subItemsArray.length > 0) {
+      return null
+    }
+
+    return item.toggle()
+  }
+
   return (
     <div 
       className="flex alignCenterVertically listItem"
@@ -60,8 +69,9 @@ const TodoItem = observer((props: TodoItemProps) => {
     >
       <Checkbox
         label={item.value}
-        checked={item.checked}
-        onChange={() => item.toggle()}
+        className={item.isCheckedBySubitems || item.checked ? 'cancelled' : ''}
+        checked={item.isCheckedBySubitems || item.checked}
+        onChange={handleChange}
       />
       {renderModalButton()}
       {renderRemoveItemButton()}
